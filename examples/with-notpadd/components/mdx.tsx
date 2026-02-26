@@ -1,4 +1,4 @@
-import { MDXContent } from "@content-collections/mdx/react";
+import { MDXContent } from "notpadd-mdx/react";
 import Image from "next/image";
 import Link from "next/link";
 import { Code } from "./code";
