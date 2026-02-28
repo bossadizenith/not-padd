@@ -8,4 +8,5 @@ const nextConfig: NextConfig = {
   },
 };
 
+// @ts-expect-error type mismatch between Next.js 14 and 16
 export default withNotpadd(nextConfig);
