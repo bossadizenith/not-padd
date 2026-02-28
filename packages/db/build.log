@@ -1,0 +1,61 @@
+
+> @notpadd/db@ build /home/bkm/Projects/not-padd/packages/db
+> tsup src/index.ts src/schema.ts src/types.ts --format esm,cjs --dts -d dist --tsconfig tsconfig.build.json
+
+CLI Building entry: src/index.ts, src/schema.ts, src/types.ts
+CLI Using tsconfig: tsconfig.build.json
+CLI tsup v8.5.0
+CLI Target: esnext
+ESM Build start
+CJS Build start
+✘ [ERROR] Could not resolve "@notpadd/env/server"
+
+    src/index.ts:6:20:
+      6 │ import { env } from "@notpadd/env/server";
+        ╵                     ~~~~~~~~~~~~~~~~~~~~~
+
+  The module "./dist/server.js" was not found on the file system:
+
+    node_modules/@notpadd/env/package.json:13:16:
+      13 │       "import": "./dist/server.js"
+         ╵                 ~~~~~~~~~~~~~~~~~~
+
+  You can mark the path "@notpadd/env/server" as external to exclude it from the bundle, which will remove this error and leave the unresolved path in the bundle.
+
+✘ [ERROR] Could not resolve "@notpadd/env/server"
+
+    src/index.ts:6:20:
+      6 │ import { env } from "@notpadd/env/server";
+        ╵                     ~~~~~~~~~~~~~~~~~~~~~
+
+  The module "./dist/server.js" was not found on the file system:
+
+    node_modules/@notpadd/env/package.json:13:16:
+      13 │       "import": "./dist/server.js"
+         ╵                 ~~~~~~~~~~~~~~~~~~
+
+  You can mark the path "@notpadd/env/server" as external to exclude it from the bundle, which will remove this error and leave the unresolved path in the bundle.
+
+ESM Build failed
+Error: Build failed with 1 error:
+src/index.ts:6:20: ERROR: Could not resolve "@notpadd/env/server"
+    at failureErrorWithLog (/home/bkm/Projects/not-padd/node_modules/.pnpm/esbuild@0.25.12/node_modules/esbuild/lib/main.js:1467:15)
+    at /home/bkm/Projects/not-padd/node_modules/.pnpm/esbuild@0.25.12/node_modules/esbuild/lib/main.js:926:25
+    at runOnEndCallbacks (/home/bkm/Projects/not-padd/node_modules/.pnpm/esbuild@0.25.12/node_modules/esbuild/lib/main.js:1307:45)
+    at buildResponseToResult (/home/bkm/Projects/not-padd/node_modules/.pnpm/esbuild@0.25.12/node_modules/esbuild/lib/main.js:924:7)
+    at /home/bkm/Projects/not-padd/node_modules/.pnpm/esbuild@0.25.12/node_modules/esbuild/lib/main.js:951:16
+    at responseCallbacks.<computed> (/home/bkm/Projects/not-padd/node_modules/.pnpm/esbuild@0.25.12/node_modules/esbuild/lib/main.js:603:9)
+    at handleIncomingPacket (/home/bkm/Projects/not-padd/node_modules/.pnpm/esbuild@0.25.12/node_modules/esbuild/lib/main.js:658:12)
+    at Socket.readFromStdout (/home/bkm/Projects/not-padd/node_modules/.pnpm/esbuild@0.25.12/node_modules/esbuild/lib/main.js:581:7)
+    at Socket.emit (node:events:508:28)
+    at addChunk (node:internal/streams/readable:559:12)
+CJS Build failed
+DTS Build start
+DTS ⚡️ Build success in 21439ms
+DTS dist/index.d.ts   92.21 KB
+DTS dist/types.d.ts   1.57 KB
+DTS dist/schema.d.ts  157.26 KB
+DTS dist/index.d.cts  92.21 KB
+DTS dist/types.d.cts  1.58 KB
+DTS dist/schema.d.cts 157.26 KB
+ ELIFECYCLE  Command failed with exit code 1.
