@@ -13,19 +13,19 @@
   },
   "bugs": "https://github.com/bossadizenith/not-padd/issues",
   "main": "dist/index.cjs",
-  "module": "dist/index.js",
-  "types": "./dist/index.d.ts",
+  "module": "dist/index.mjs",
+  "types": "./dist/index.d.mts",
   "exports": {
     "./package.json": "./package.json",
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
+      "types": "./dist/index.d.mts",
+      "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
     },
     "./react": {
-      "types": "./dist/react/client.d.ts",
-      "react-server": "./dist/react/server.js",
-      "import": "./dist/react/client.js",
+      "types": "./dist/react/client.d.mts",
+      "react-server": "./dist/react/server.mjs",
+      "import": "./dist/react/client.mjs",
       "require": "./dist/react/client.cjs"
     }
   },
@@ -45,7 +45,6 @@
     "react-dom": ">= 18"
   },
   "devDependencies": {
-    "notpadd-core": "workspace:*",
     "@testing-library/jest-dom": "^6.5.0",
     "@testing-library/react": "^16.3.0",
     "@types/mdast": "^4.0.4",
@@ -54,9 +53,10 @@
     "@types/react-dom": "^18.3.0",
     "@vitest/coverage-v8": "^3.2.4",
     "happy-dom": "^15.11.0",
+    "notpadd-core": "workspace:*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "tsdown": "^0.15.6",
+    "tsdown": "0.21.0-beta.2",
     "typescript": "^5.5.4",
     "vitest": "^3.2.4"
   }
