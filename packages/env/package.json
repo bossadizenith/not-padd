@@ -5,16 +5,18 @@
   "private": true,
   "exports": {
     "./client": {
-      "types": "./dist/client.d.ts",
-      "import": "./dist/client.js"
+      "types": "./dist/client.d.mts",
+      "import": "./dist/client.mjs",
+      "require": "./dist/client.cjs"
     },
     "./server": {
-      "types": "./dist/server.d.ts",
-      "import": "./dist/server.js"
+      "types": "./dist/server.d.mts",
+      "import": "./dist/server.mjs",
+      "require": "./dist/server.cjs"
     }
   },
   "scripts": {
-    "build": "tsdown client.ts server.ts --format esm,cjs --dts -d dist && cp dist/client-*.d.ts dist/client.d.ts 2>/dev/null || true && cp dist/server-*.d.ts dist/server.d.ts 2>/dev/null || true"
+    "build": "tsdown client.ts server.ts --format esm,cjs --dts -d dist"
   },
   "devDependencies": {
     "@notpadd/eslint-config": "workspace:*",
@@ -24,7 +26,7 @@
   "dependencies": {
     "@t3-oss/env-core": "^0.13.8",
     "dotenv": "^16.5.0",
-    "tsdown": "^0.15.6",
+    "tsdown": "0.21.0-beta.2",
     "zod": "^4.0.14"
   }
 }
