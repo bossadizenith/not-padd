@@ -30,4 +30,7 @@ export type Key = InferSelectModel<typeof schema.key>;
 export type GithubAppIntegration = InferSelectModel<
   typeof schema.githubAppIntegration
 >;
+export type GitlabAppIntegration = InferSelectModel<
+  typeof schema.gitlabAppIntegration
+>;
 export type Waitlist = InferSelectModel<typeof schema.waitlist>;
