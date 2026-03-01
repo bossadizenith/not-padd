@@ -25,5 +25,14 @@
   },
   "dependencies": {
     "dotenv": "^16.6.1"
+  },
+  "pnpm": {
+    "overrides": {
+      "react": "19.2.4",
+      "react-dom": "19.2.4",
+      "esbuild": "0.25.12",
+      "@types/react": "19.0.8",
+      "@types/react-dom": "19.0.3"
+    }
   }
 }
