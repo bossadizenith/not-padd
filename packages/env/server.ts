@@ -29,6 +29,11 @@ export const env = createEnvCore({
     GITHUB_APP_ID: z.string(),
     GITHUB_APP_PRIVATE_KEY: z.string(),
 
+    // GitLab App
+    GITLAB_CLIENT_ID: z.string(),
+    GITLAB_CLIENT_SECRET: z.string(),
+    GITLAB_REDIRECT_URI: z.string().url(),
+
     // Server Configuration
     BACKEND_URL: z.string(),
     FRONTEND_URL: z.string(),
@@ -50,7 +55,7 @@ export const env = createEnvCore({
         },
         {
           message: 'Must be "*" or a comma-separated list of valid URLs',
-        }
+        },
       )
       .transform((val) => {
         if (val === "*") return ["*"];
