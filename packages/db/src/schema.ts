@@ -27,6 +27,9 @@ export const organization = pgTable("organization", {
   logo: text("logo"),
   metadata: jsonb("metadata"),
   lastUsed: boolean("last_used").default(false),
+  repoProvider: text("repo_provider", { enum: ["github", "gitlab"] })
+    .notNull()
+    .default("github"),
   repoUrl: text("repo_url").notNull().default(""),
   repoPath: text("repo_path").notNull().default(""),
   createdAt: timestamp("created_at")
@@ -53,7 +56,7 @@ export const member = pgTable(
       .$defaultFn(() => new Date())
       .notNull(),
   },
-  (table) => [unique().on(table.id, table.organizationId)]
+  (table) => [unique().on(table.id, table.organizationId)],
 );
 
 export const team = pgTable("team", {
@@ -159,7 +162,7 @@ export const tag = pgTable(
   (table) => [
     unique().on(table.organizationId, table.slug),
     unique().on(table.id, table.organizationId),
-  ]
+  ],
 );
 export const articles = pgTable(
   "articles",
@@ -192,7 +195,7 @@ export const articles = pgTable(
   (table) => [
     unique().on(table.organizationId, table.slug),
     unique().on(table.id, table.organizationId),
-  ]
+  ],
 );
 
 export const articleTag = pgTable(
@@ -222,7 +225,7 @@ export const articleTag = pgTable(
       foreignColumns: [organization.id],
       name: "fk_article_tag_org",
     }),
-  ]
+  ],
 );
 
 export const articleAuthor = pgTable(
@@ -252,7 +255,7 @@ export const articleAuthor = pgTable(
       foreignColumns: [organization.id],
       name: "fk_article_author_org",
     }),
-  ]
+  ],
 );
 
 export const event = pgTable("event", {
@@ -315,6 +318,24 @@ export const githubAppIntegration = pgTable("github_app_integration", {
     .notNull(),
 });
 
+export const gitlabAppIntegration = pgTable("gitlab_app_integration", {
+  id: text("id").primaryKey(),
+  userId: text("user_id")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
+  accessToken: text("access_token").notNull(),
+  refreshToken: text("refresh_token").notNull(),
+  expiresAt: timestamp("expires_at").notNull(),
+  gitlabUserId: integer("gitlab_user_id").notNull(),
+  gitlabUsername: text("gitlab_username").notNull(),
+  createdAt: timestamp("created_at")
+    .$defaultFn(() => new Date())
+    .notNull(),
+  updatedAt: timestamp("updated_at")
+    .$defaultFn(() => new Date())
+    .notNull(),
+});
+
 export const waitlist = pgTable("waitlist", {
   id: text("id").primaryKey(),
   email: text("email").notNull().unique(),
@@ -344,6 +365,7 @@ export const schema = {
   articleAuthor,
   key,
   githubAppIntegration,
+  gitlabAppIntegration,
   waitlist,
   invitationRelations,
 };
