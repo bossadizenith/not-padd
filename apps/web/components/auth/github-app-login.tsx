@@ -55,7 +55,7 @@ export const GithubAppLogin = () => {
         }
 
         const { data } = await axios.get(
-          `/api/github/repositories?${params.toString()}`
+          `/api/github/repositories?${params.toString()}`,
         );
 
         if (!data.success) {
@@ -65,7 +65,7 @@ export const GithubAppLogin = () => {
         return data;
       },
       enabled: !!integration?.installationId && isOwner,
-    }
+    },
   );
 
   const { mutate: connectRepository, isPending: isConnectingRepository } =
@@ -211,6 +211,10 @@ export const GithubAppLogin = () => {
         </Button>
       </div>
     );
+
+  const isGitHubConnected = activeOrganization?.repoProvider !== "gitlab";
+
+  if (!isGitHubConnected) return null;
 
   return (
     <div className="flex flex-col gap-6">
