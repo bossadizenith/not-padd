@@ -8,8 +8,6 @@ import { toast } from "sonner";
 import { env } from "@notpadd/env/client";
 
 const SocialButton = () => {
-  console.log(env.NEXT_PUBLIC_BACKEND_URL);
-
   const [isLoading, setIsLoading] = useState(false);
   const handleGoogleLogin = async () => {
     try {
