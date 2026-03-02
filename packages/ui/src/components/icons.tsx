@@ -43,6 +43,17 @@ export const Icons = {
       />
     </svg>
   ),
+  gitlab: (props: IconProps) => (
+    <svg viewBox="0 0 50 50" fill="none" {...props}>
+      <path
+        d="M25 45.5L7.5 32L9 24.5L16 11.5L25 29L34 11.5L41 24.5L42.5 32L25 45.5Z"
+        fill="#FC6D26"
+      />
+      <path d="M25 45.5L16 11.5H34L25 45.5Z" fill="#E24329" />
+      <path d="M7.5 32L25 45.5L16 29L7.5 32Z" fill="#FCA326" />
+      <path d="M42.5 32L25 45.5L34 29L42.5 32Z" fill="#FCA326" />
+    </svg>
+  ),
   icon: (props: IconProps) => (
     <svg
       width="798"
