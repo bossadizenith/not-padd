@@ -6,6 +6,7 @@ import type { Member, Organization } from "@/types";
 
 // Type for Better Auth organization return with additional fields
 type AuthOrganization = Organization & {
+  repoProvider?: string;
   repoUrl?: string;
   repoPath?: string;
 };
@@ -21,7 +22,7 @@ export interface UseOrganizationReturn {
   activeOrganizationError: Error | null;
   setActiveOrganization: (
     organizationId: string,
-    organizationSlug: string
+    organizationSlug: string,
   ) => Promise<void>;
   unsetActiveOrganization: () => Promise<void>;
 
@@ -70,7 +71,7 @@ export const useOrganization = (): UseOrganizationReturn => {
         throw error;
       }
     },
-    [refetchActiveMember]
+    [refetchActiveMember],
   );
 
   const unsetActiveOrganization = useCallback(async () => {
@@ -98,7 +99,7 @@ export const useOrganization = (): UseOrganizationReturn => {
         return false;
       }
     },
-    []
+    [],
   );
 
   const isOwner = activeMember?.role === "owner";
@@ -186,6 +187,7 @@ export const useOrganizationActions = () => {
       keepCurrentActiveOrganization?: boolean;
     }) => {
       try {
+        // @ts-ignore nothing
         const result = await authClient.organization.create(data);
         return result;
       } catch (error) {
@@ -193,7 +195,7 @@ export const useOrganizationActions = () => {
         throw error;
       }
     },
-    []
+    [],
   );
 
   const updateOrganization = useCallback(
@@ -215,7 +217,7 @@ export const useOrganizationActions = () => {
         throw error;
       }
     },
-    []
+    [],
   );
 
   const deleteOrganization = useCallback(async (organizationId: string) => {
