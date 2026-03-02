@@ -57,6 +57,11 @@ export const auth = betterAuth({
               input: true,
               required: false,
             },
+            repoProvider: {
+              type: "string",
+              input: true,
+              required: false,
+            },
             repoUrl: {
               type: "string",
               input: true,
@@ -105,7 +110,7 @@ export const auth = betterAuth({
             const memberById = await db.query.member.findFirst({
               where: and(
                 eq(member.id, invitation.inviterId),
-                eq(member.organizationId, organization.id)
+                eq(member.organizationId, organization.id),
               ),
             });
 
@@ -116,7 +121,7 @@ export const auth = betterAuth({
             const memberByUserId = await db.query.member.findFirst({
               where: and(
                 eq(member.userId, invitation.inviterId),
-                eq(member.organizationId, organization.id)
+                eq(member.organizationId, organization.id),
               ),
             });
 
@@ -135,7 +140,7 @@ export const auth = betterAuth({
             const memberRecord = await db.query.member.findFirst({
               where: and(
                 eq(member.id, inviter.id),
-                eq(member.organizationId, organization.id)
+                eq(member.organizationId, organization.id),
               ),
             });
             if (memberRecord) {
@@ -144,7 +149,7 @@ export const auth = betterAuth({
               const memberByUserId = await db.query.member.findFirst({
                 where: and(
                   eq(member.userId, inviter.id),
-                  eq(member.organizationId, organization.id)
+                  eq(member.organizationId, organization.id),
                 ),
               });
               if (memberByUserId) {
@@ -160,7 +165,7 @@ export const auth = betterAuth({
             const memberRecord = await db.query.member.findFirst({
               where: and(
                 eq(member.userId, inviter.userId),
-                eq(member.organizationId, organization.id)
+                eq(member.organizationId, organization.id),
               ),
             });
             if (memberRecord) {
@@ -176,7 +181,7 @@ export const auth = betterAuth({
             const memberRecord = await db.query.member.findFirst({
               where: and(
                 eq(member.userId, inviter.user.id),
-                eq(member.organizationId, organization.id)
+                eq(member.organizationId, organization.id),
               ),
             });
             if (memberRecord) {
@@ -192,7 +197,7 @@ export const auth = betterAuth({
             };
           }
           throw new Error(
-            `Cannot determine member ID for inviter. Invitation inviterId: ${invitation.inviterId}, Inviter: ${JSON.stringify(inviter)}, Organization: ${organization.id}`
+            `Cannot determine member ID for inviter. Invitation inviterId: ${invitation.inviterId}, Inviter: ${JSON.stringify(inviter)}, Organization: ${organization.id}`,
           );
         },
       },
@@ -222,7 +227,7 @@ export const auth = betterAuth({
           const existingMember = await db.query.member.findFirst({
             where: and(
               eq(member.id, invitation.inviterId),
-              eq(member.organizationId, invitation.organizationId)
+              eq(member.organizationId, invitation.organizationId),
             ),
           });
 
@@ -233,7 +238,7 @@ export const auth = betterAuth({
           const memberByUserId = await db.query.member.findFirst({
             where: and(
               eq(member.userId, invitation.inviterId),
-              eq(member.organizationId, invitation.organizationId)
+              eq(member.organizationId, invitation.organizationId),
             ),
           });
 
@@ -247,7 +252,7 @@ export const auth = betterAuth({
           }
 
           throw new Error(
-            `Invalid inviterId: ${invitation.inviterId} is not a valid member ID or user ID for organization ${invitation.organizationId}`
+            `Invalid inviterId: ${invitation.inviterId} is not a valid member ID or user ID for organization ${invitation.organizationId}`,
           );
         },
       },
