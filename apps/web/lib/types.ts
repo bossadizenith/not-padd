@@ -20,6 +20,7 @@ export type ModalTypes =
   | "create-key"
   | "invite-member"
   | "github-config"
+  | "gitlab-config"
   | "upload-media";
 
 export type ConfirmationModalTypes = "delete-article" | "delete-member";
@@ -115,6 +116,18 @@ export type GithubAppIntegration = {
 export type GithubAppIntegrationsResponse = {
   data: GithubAppIntegration[];
   pagination: Pagination;
+};
+
+export type GitlabAppIntegration = {
+  id: string;
+  userId: string;
+  accessToken: string;
+  refreshToken: string;
+  expiresAt: Date;
+  gitlabUserId: number;
+  gitlabUsername: string;
+  createdAt: Date;
+  updatedAt: Date;
 };
 
 export type CreateGithubAppIntegrationSchema = z.infer<
