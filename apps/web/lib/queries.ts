@@ -10,6 +10,7 @@ import type {
   CreateArticleSchema,
   CreateKeySchema,
   GithubAppIntegration,
+  GitlabAppIntegration,
   JoinWaitlistEmailSchema,
   KeysResponse,
   MediaResponse,
@@ -21,11 +22,11 @@ export const ARTICLES_QUERIES = {
   updateArticle: async (
     organizationId: string,
     articleId: string,
-    data: UpdateArticleSchema
+    data: UpdateArticleSchema,
   ) => {
     const response = await apiClient.put<APIResponse<{ data: Articles }>>(
       `/articles/${organizationId}/${articleId}`,
-      data
+      data,
     );
 
     if (!response.data.success) {
@@ -36,10 +37,10 @@ export const ARTICLES_QUERIES = {
   },
   getArticles: async (
     organizationId: string,
-    queries: { page: number; limit: number; search: string }
+    queries: { page: number; limit: number; search: string },
   ) => {
     const response = await apiClient.get<APIResponse<ArticlesResponse>>(
-      `/articles/${organizationId}?page=${queries.page}&limit=${queries.limit}&search=${queries.search}`
+      `/articles/${organizationId}?page=${queries.page}&limit=${queries.limit}&search=${queries.search}`,
     );
 
     if (!response.data.success) {
@@ -49,7 +50,7 @@ export const ARTICLES_QUERIES = {
   },
   getArticleById: async (organizationId: string, articleId: string) => {
     const response = await apiClient.get<APIResponse<ArticleWithRelations>>(
-      `/articles/${organizationId}/${articleId}`
+      `/articles/${organizationId}/${articleId}`,
     );
 
     if (!response.data.success) {
@@ -61,7 +62,7 @@ export const ARTICLES_QUERIES = {
   createArticle: async (organizationId: string, data: CreateArticleSchema) => {
     const response = await apiClient.post<APIResponse<Articles>>(
       `/articles/${organizationId}`,
-      data
+      data,
     );
 
     if (!response.data.success) {
@@ -72,7 +73,7 @@ export const ARTICLES_QUERIES = {
   },
   deleteArticle: async (organizationId: string, articleId: string) => {
     const response = await apiClient.delete<APIResponse<Articles>>(
-      `/articles/${organizationId}/${articleId}`
+      `/articles/${organizationId}/${articleId}`,
     );
 
     if (!response.data.success) {
@@ -84,7 +85,7 @@ export const ARTICLES_QUERIES = {
   checkSlug: async (organizationId: string, slug: string) => {
     const response = await apiClient.post<APIResponse<{ slug: boolean }>>(
       `/articles/${organizationId}/check-slug`,
-      { slug }
+      { slug },
     );
 
     if (!response.data.success) {
@@ -98,10 +99,10 @@ export const ARTICLES_QUERIES = {
 export const MEDIA_QUERIES = {
   getMedia: async (
     organizationId: string,
-    queries: { page: number; limit: number; search: string }
+    queries: { page: number; limit: number; search: string },
   ) => {
     const response = await apiClient.get<APIResponse<MediaResponse>>(
-      `/media/${organizationId}?page=${queries.page}&limit=${queries.limit}&search=${queries.search}`
+      `/media/${organizationId}?page=${queries.page}&limit=${queries.limit}&search=${queries.search}`,
     );
     if (!response.data.success) {
       throw new Error(response.data.error);
@@ -114,10 +115,10 @@ export const MEDIA_QUERIES = {
 export const TAGS_QUERIES = {
   getTags: async (
     organizationId: string,
-    queries: { page: number; limit: number; search: string }
+    queries: { page: number; limit: number; search: string },
   ) => {
     const response = await apiClient.get<APIResponse<TagsResponse>>(
-      `/tags/${organizationId}?page=${queries.page}&limit=${queries.limit}&search=${queries.search}`
+      `/tags/${organizationId}?page=${queries.page}&limit=${queries.limit}&search=${queries.search}`,
     );
 
     if (!response.data.success) {
@@ -128,7 +129,7 @@ export const TAGS_QUERIES = {
   },
   getTagById: async (organizationId: string, id: string) => {
     const response = await apiClient.get<APIResponse<Tag>>(
-      `/tags/${organizationId}/${id}`
+      `/tags/${organizationId}/${id}`,
     );
 
     if (!response.data.success) {
@@ -140,7 +141,7 @@ export const TAGS_QUERIES = {
   createTag: async (organizationId: string, data: { name: string }) => {
     const response = await apiClient.post<APIResponse<{ data: Tag }>>(
       `/tags/${organizationId}`,
-      data
+      data,
     );
 
     if (!response.data.success) {
@@ -152,11 +153,11 @@ export const TAGS_QUERIES = {
   updateTagBySlug: async (
     organizationId: string,
     slug: string,
-    data: { name: string }
+    data: { name: string },
   ) => {
     const response = await apiClient.put<APIResponse<{ data: Tag }>>(
       `/tags/${organizationId}/${slug}`,
-      data
+      data,
     );
 
     if (!response.data.success) {
@@ -167,7 +168,7 @@ export const TAGS_QUERIES = {
   },
   deleteTag: async (organizationId: string, tagId: string) => {
     const response = await apiClient.delete<APIResponse<{ data: Tag }>>(
-      `/tags/${organizationId}/${tagId}`
+      `/tags/${organizationId}/${tagId}`,
     );
 
     if (!response.data.success) {
@@ -182,7 +183,7 @@ export const AUTHORS_QUERIES = {
   getAuthors: async (
     organizationId: string,
     articleId: string,
-    queries: { page: number; limit: number }
+    queries: { page: number; limit: number },
   ) => {
     const searchParams = new URLSearchParams({
       page: String(queries.page),
@@ -190,7 +191,7 @@ export const AUTHORS_QUERIES = {
     });
 
     const response = await apiClient.get<APIResponse<AuthorsResponse>>(
-      `/authors/${organizationId}/${articleId}?${searchParams.toString()}`
+      `/authors/${organizationId}/${articleId}?${searchParams.toString()}`,
     );
 
     if (!response.data.success) {
@@ -202,10 +203,10 @@ export const AUTHORS_QUERIES = {
   getAuthor: async (
     organizationId: string,
     articleId: string,
-    memberId: string
+    memberId: string,
   ) => {
     const response = await apiClient.get<APIResponse<AuthorsListItem>>(
-      `/authors/${organizationId}/${articleId}/${memberId}`
+      `/authors/${organizationId}/${articleId}/${memberId}`,
     );
 
     if (!response.data.success) {
@@ -216,7 +217,7 @@ export const AUTHORS_QUERIES = {
   },
   addAuthor: async (
     organizationId: string,
-    data: { articleId: string; memberId: string }
+    data: { articleId: string; memberId: string },
   ) => {
     const response = await apiClient.post<
       APIResponse<{ data: AuthorsListItem }>
@@ -232,7 +233,7 @@ export const AUTHORS_QUERIES = {
     organizationId: string,
     articleId: string,
     memberId: string,
-    data: { memberId: string }
+    data: { memberId: string },
   ) => {
     const response = await apiClient.put<
       APIResponse<{ data: AuthorsListItem }>
@@ -247,7 +248,7 @@ export const AUTHORS_QUERIES = {
   deleteAuthor: async (
     organizationId: string,
     articleId: string,
-    memberId: string
+    memberId: string,
   ) => {
     const response = await apiClient.delete<
       APIResponse<{ data: AuthorsListItem }>
@@ -262,7 +263,7 @@ export const AUTHORS_QUERIES = {
   updateCoverImage: async (articleId: string, data: { url: string }) => {
     const response = await apiClient.post<APIResponse<{ data: Articles }>>(
       `/articles/${articleId}/cover-image`,
-      data
+      data,
     );
 
     if (!response.data.success) {
@@ -277,7 +278,7 @@ export const KEYS_QUERIES = {
   createKey: async (organizationId: string, data: CreateKeySchema) => {
     const response = await apiClient.post<APIResponse<{ data: any }>>(
       `/keys/${organizationId}`,
-      data
+      data,
     );
 
     if (!response.data.success) {
@@ -288,10 +289,10 @@ export const KEYS_QUERIES = {
   },
   getKeys: async (
     organizationId: string,
-    queries: { page: number; limit: number; search: string }
+    queries: { page: number; limit: number; search: string },
   ) => {
     const response = await apiClient.get<APIResponse<KeysResponse>>(
-      `/keys/${organizationId}?page=${queries.page}&limit=${queries.limit}&search=${queries.search}`
+      `/keys/${organizationId}?page=${queries.page}&limit=${queries.limit}&search=${queries.search}`,
     );
 
     if (!response.data.success) {
@@ -302,7 +303,7 @@ export const KEYS_QUERIES = {
   },
   getKeyById: async (organizationId: string, keyId: string) => {
     const response = await apiClient.get<APIResponse<any>>(
-      `/keys/${organizationId}/${keyId}`
+      `/keys/${organizationId}/${keyId}`,
     );
 
     if (!response.data.success) {
@@ -313,7 +314,7 @@ export const KEYS_QUERIES = {
   },
   deleteKey: async (organizationId: string, keyId: string) => {
     const response = await apiClient.delete<APIResponse<{ data: any }>>(
-      `/keys/${organizationId}/${keyId}`
+      `/keys/${organizationId}/${keyId}`,
     );
 
     if (!response.data.success) {
@@ -332,7 +333,7 @@ export const ORGANIZATION_QUERIES = {
       offset: number;
       sortBy: string;
       sortDirection: "asc" | "desc";
-    }
+    },
   ) => {
     const { data, error } = await authClient.organization.listMembers({
       query: {
@@ -360,7 +361,7 @@ export const GITHUB_APP_QUERIES = {
       throw new Error(response.data.error);
     }
 
-    return response.data.data;
+    return response.data.data || null;
   },
   connectRepository: async (organizationId: string, repositoryId: string) => {
     const response = await apiClient.post<
@@ -377,11 +378,37 @@ export const GITHUB_APP_QUERIES = {
   },
 };
 
+export const GITLAB_APP_QUERIES = {
+  getUserIntegration: async (organizationId: string) => {
+    const response =
+      await apiClient.get<APIResponse<GitlabAppIntegration>>(`/gl-app`);
+
+    if (!response.data.success) {
+      throw new Error(response.data.error);
+    }
+
+    return response.data.data || null;
+  },
+  connectRepository: async (organizationId: string, repositoryId: string) => {
+    const response = await apiClient.post<
+      APIResponse<{ id: string; slug: string }>
+    >(`/gl-app/connect/${organizationId}`, {
+      repositoryId,
+    });
+
+    if (!response.data.success) {
+      throw new Error(response.data.error);
+    }
+
+    return response.data.data;
+  },
+};
+
 export const WAITLIST_QUERIES = {
   joinWaitlist: async (data: JoinWaitlistEmailSchema) => {
     const response = await apiClient.post<APIResponse<{ data: any }>>(
       `/waitlist/join`,
-      data
+      data,
     );
 
     if (!response.data.success) {
