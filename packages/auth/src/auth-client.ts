@@ -12,11 +12,12 @@ export const authClient = createAuthClient({
       schema: {
         organization: {
           additionalFields: {
-            lastUsed: { type: "boolean" },
-            repoUrl: { type: "string" },
-            repoPath: { type: "string" },
-            storageLimit: { type: "number" },
-            storageUsed: { type: "number" },
+            lastUsed: { type: "boolean", required: false },
+            repoProvider: { type: "string", required: false },
+            repoUrl: { type: "string", required: false },
+            repoPath: { type: "string", required: false },
+            storageLimit: { type: "number", required: false },
+            storageUsed: { type: "number", required: false },
           },
         },
       },
