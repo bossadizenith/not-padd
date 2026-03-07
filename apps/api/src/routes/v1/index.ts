@@ -18,7 +18,7 @@ type NotpaddArticleType = "all" | "published" | "draft";
 
 const generateFieldsErrors = (
   fields: Record<string, { error: string }>,
-  provided: Record<string, unknown>
+  provided: Record<string, unknown>,
 ) => {
   return Object.entries(fields)
     .filter(([key]) => {
@@ -71,6 +71,7 @@ v1Routes.get("/articles", async (c) => {
       slug: articles.slug,
       description: articles.description,
       published: articles.published,
+      content: articles.content,
       markdown: articles.markdown,
       createdAt: articles.createdAt,
       updatedAt: articles.updatedAt,
@@ -94,14 +95,14 @@ v1Routes.get("/articles", async (c) => {
             tag,
             and(
               eq(tag.id, articleTag.tagId),
-              eq(tag.organizationId, articleTag.organizationId)
-            )
+              eq(tag.organizationId, articleTag.organizationId),
+            ),
           )
           .where(
             and(
               eq(articleTag.organizationId, organization_Id),
-              inArray(articleTag.articleId, articleIds)
-            )
+              inArray(articleTag.articleId, articleIds),
+            ),
           )
       : [],
     articleIds.length > 0
@@ -118,15 +119,15 @@ v1Routes.get("/articles", async (c) => {
             member,
             and(
               eq(member.id, articleAuthor.memberId),
-              eq(member.organizationId, articleAuthor.organizationId)
-            )
+              eq(member.organizationId, articleAuthor.organizationId),
+            ),
           )
           .leftJoin(userTable, eq(userTable.id, member.userId))
           .where(
             and(
               eq(articleAuthor.organizationId, organization_Id),
-              inArray(articleAuthor.articleId, articleIds)
-            )
+              inArray(articleAuthor.articleId, articleIds),
+            ),
           )
       : [],
   ]);
@@ -140,7 +141,7 @@ v1Routes.get("/articles", async (c) => {
       acc[row.articleId].push(row.name);
       return acc;
     },
-    {} as Record<string, string[]>
+    {} as Record<string, string[]>,
   );
 
   const authorsByArticle = authorRows.reduce(
@@ -160,7 +161,7 @@ v1Routes.get("/articles", async (c) => {
     {} as Record<
       string,
       Array<{ id: string; name: string; email: string; image: string }>
-    >
+    >,
   );
 
   const articlesWithRelations = dbArticles.map((article) => {
